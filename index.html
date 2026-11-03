@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team ERSA — SDR Lab</title>
+<meta name="description" content="Team ERSA reports for the Software Defined Radio Lab, Department of Electrical Engineering, Sharif University of Technology, Fall 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./"><b>ERSA</b><span>SDR Lab · Fall 2026</span></a>
+    <nav>
+      <a href="./" aria-current="page">Labs</a>
+      <a href="https://github.com/ersa-sdr/ersa-sdr.github.io">Repository</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h1>Software Defined Radio Lab</h1>
+    <p class="lead">Pre-session and post-session reports, GNU Radio flowgraphs, code and raw I/Q data of team ERSA, recorded with an ADALM-Pluto (AD9363).</p>
+    <p>Department of Electrical Engineering, Sharif University of Technology — first semester 1405–1406 (Fall 2026).</p>
+  </section>
+
+  <section>
+    <h2>Team</h2>
+    <div class="members">
+      <div class="member"><b>Amir Mahdi Miraliyari</b><span>Team member</span></div>
+      <div class="member"><b>Mobin Jelodar</b><span>Team member</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Experiments</h2>
+    <p>Each report is published on this site exactly at its deadline, as the course regulations require. Dates are session dates (YYYY-MM-DD).</p>
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr>
+            <th>Lab</th>
+            <th>Title</th>
+            <th>Session</th>
+            <th>Pre-session report</th>
+            <th>Post-session report</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">00</td>
+            <td><a href="labs/lab00/">Setup and toolchain</a></td>
+            <td class="date">2026-10-28</td>
+            <td><span class="pill none">Not required</span></td>
+            <td><span class="pill wait">Partly complete</span></td>
+          </tr>
+          <tr>
+            <td class="num">01</td>
+            <td><a href="labs/lab01/">Spectrum monitoring</a></td>
+            <td class="date">2026-11-04</td>
+            <td><span class="pill wait">Due before session</span></td>
+            <td><span class="pill none">Due 2026-11-11</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Conventions</h2>
+    <ul>
+      <li>Raw I/Q files are interleaved <code>complex64</code> (two <code>float32</code> per sample, no header), named <code>teamID_labNN_fc_fs_gain_timestamp.cf32</code>.</li>
+      <li>Reports are typeset in LaTeX; each report page links the PDF, the <code>.tex</code> sources, the <code>.grc</code> flowgraphs and the analysis code.</li>
+      <li>Peer reviewers: please leave review comments at the bottom of the report page you are assigned to.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Team ERSA · SDR Lab, Sharif University of Technology · AI tools used for this site: initial HTML/CSS template.</div>
+</footer>
+
+</body>
+</html>

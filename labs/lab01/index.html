@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 01 — Spectrum Monitoring | Team ERSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+<!-- KaTeX: renders $...$ and $$...$$ math -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../../"><b>ERSA</b><span>SDR Lab · Fall 2026</span></a>
+    <nav><a href="../../">Labs</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h1>Lab 01 — Spectrum monitoring</h1>
+    <div class="meta">
+      <span>Session: 2026-11-04</span>
+      <span>Post-session deadline: 2026-11-11</span>
+      <span>Device: ADALM-Pluto (AD9363), RX1</span>
+    </div>
+    <p class="lead">Surveying the local radio spectrum with GNU Radio: GSM, LTE and FM bands, a loopback test tone, and raw I/Q recordings for offline analysis.</p>
+  </section>
+
+  <section>
+    <h2>Pre-session report</h2>
+    <!-- At the deadline, replace this notice with the file list below. -->
+    <div class="notice">Published at the deadline.</div>
+    <!--
+    <ul class="files">
+      <li><a href="files/lab01_monitor.grc">lab01_monitor.grc</a><span class="note">Monitoring flowgraph (Fig. 3, Table 4)</span></li>
+      <li><a href="files/lab01_loopback.grc">lab01_loopback.grc</a><span class="note">Loopback flowgraph (Fig. 4, Table 5)</span></li>
+      <li><a href="files/sdrlab_iq_recorder.py">sdrlab_iq_recorder.py</a><span class="note">SDR Lab IQ Recorder block</span></li>
+    </ul>
+    -->
+  </section>
+
+  <section>
+    <h2>Frequency axis</h2>
+    <p>With sample rate $f_s$, FFT length $N$ and tuned centre frequency $f_c$, each display bin at baseband frequency $f_{\text{bb}}$ maps to RF as</p>
+    <div class="math-box">
+      $$f_{\text{label}} = f_c + f_{\text{bb}}, \qquad -\frac{f_s}{2} \le f_{\text{bb}} < \frac{f_s}{2}, \qquad \Delta f = \frac{f_s}{N}$$
+    </div>
+    <p>For $f_s = 2.6\,\text{MS/s}$ and $N = 1024$, the bin spacing is $\Delta f \approx 2.54\,\text{kHz}$.</p>
+  </section>
+
+  <section>
+    <h2>Post-session report</h2>
+    <div class="notice">Published at the deadline (2026-11-11).</div>
+    <!--
+    <ul class="files">
+      <li><a href="files/lab01_report.pdf">lab01_report.pdf</a><span class="note">Full report (LaTeX)</span></li>
+      <li><a href="files/lab01_report_tex.zip">lab01_report_tex.zip</a><span class="note">LaTeX sources</span></li>
+      <li><a href="files/analysis.py">analysis.py</a><span class="note">Analysis code</span></li>
+    </ul>
+    -->
+  </section>
+
+  <section class="comments">
+    <h2>Peer review</h2>
+    <p>Reviewers: please leave your comments below (a GitHub account is needed to comment; reading is public).</p>
+    <!-- giscus comments: fill data-repo-id and data-category-id from https://giscus.app (see README). -->
+    <script src="https://giscus.app/client.js"
+      data-repo="ersa-sdr/ersa-sdr.github.io"
+      data-repo-id="REPO_ID"
+      data-category="Announcements"
+      data-category-id="CATEGORY_ID"
+      data-mapping="pathname"
+      data-strict="1"
+      data-reactions-enabled="0"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="preferred_color_scheme"
+      data-lang="en"
+      crossorigin="anonymous"
+      async></script>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Team ERSA · SDR Lab, Sharif University of Technology</div>
+</footer>
+
+</body>
+</html>

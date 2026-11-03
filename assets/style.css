@@ -1,0 +1,115 @@
+/* Team ERSA — SDR Lab site. One stylesheet for every page. */
+:root {
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --fg: #14232a;
+  --muted: #5a6d74;
+  --line: #d6e0e3;
+  --accent: #1d6b78;
+  --accent-soft: #e2eff1;
+  --ok: #2f7a4a;
+  --ok-soft: #e3f2e8;
+  --wait: #8a5a12;
+  --wait-soft: #fbf0df;
+  --none: #6b7a80;
+  --none-soft: #eceff0;
+  --code-bg: #eef3f4;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f191c;
+    --surface: #152327;
+    --fg: #e2edef;
+    --muted: #93a7ad;
+    --line: #27393e;
+    --accent: #62b8c5;
+    --accent-soft: #1a3136;
+    --ok: #6fc58e;
+    --ok-soft: #173023;
+    --wait: #e4ab5c;
+    --wait-soft: #2c2214;
+    --none: #93a1a6;
+    --none-soft: #1f2b2e;
+    --code-bg: #0b1416;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.site-head { border-bottom: 1px solid var(--line); background: var(--surface); }
+.site-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 14px; }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--fg); }
+.brand b { font-family: var(--font-mono); font-size: 20px; letter-spacing: .08em; color: var(--accent); }
+.brand span { color: var(--muted); font-size: 14px; }
+nav { display: flex; gap: 18px; font-size: 15px; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
+
+main { padding-block: 36px 56px; display: flex; flex-direction: column; gap: 36px; }
+section { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+h1 { font-size: 30px; line-height: 1.25; margin: 0; text-wrap: balance; }
+h2 { font-size: 20px; margin: 0; }
+h3 { font-size: 16px; margin: 8px 0 0; }
+p { margin: 0; max-width: 68ch; }
+.lead { color: var(--muted); font-size: 17px; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+code { font-family: var(--font-mono); font-size: .9em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+ul { margin: 0; padding-left: 22px; }
+
+/* Members */
+.members { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.member { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.member b { display: block; }
+.member span { color: var(--muted); font-size: 14px; }
+
+/* Tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--accent-soft); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+td.num, td.date { font-family: var(--font-mono); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Status pills */
+.pill { display: inline-block; font-size: 12.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ok   { color: var(--ok);   background: var(--ok-soft); }
+.pill.wait { color: var(--wait); background: var(--wait-soft); }
+.pill.none { color: var(--none); background: var(--none-soft); }
+
+/* Report pages */
+.meta { display: flex; flex-wrap: wrap; gap: 6px 20px; color: var(--muted); font-size: 14px; }
+.files { display: flex; flex-direction: column; gap: 6px; padding: 0; list-style: none; }
+.files li { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.files .note { color: var(--muted); font-size: 14px; }
+.notice { background: var(--wait-soft); border-left: 4px solid var(--wait); border-radius: 6px; padding: 10px 14px; }
+.math-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 14px; overflow-x: auto; }
+.comments { border-top: 1px solid var(--line); padding-top: 20px; }
+
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .wrap { padding-block: 18px 28px; }
+
+@media (max-width: 520px) {
+  h1 { font-size: 24px; }
+  body { font-size: 15px; }
+  th, td { padding: 8px 10px; }
+}
