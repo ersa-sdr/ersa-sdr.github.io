@@ -1,13 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab 00 — Setup | Team ERSA</title>
+<title>گزارش آزمایش ۰ | Team ERSA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&family=Vazirmatn:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  body { font-family: "Vazirmatn", var(--font-body); line-height: 1.9; }
+  th, td { text-align: right; }
+  .ltr, code { direction: ltr; unicode-bidi: isolate; }
+  .site-head .wrap, footer .wrap { direction: ltr; }
+  .todo { background: var(--wait-soft); color: var(--wait); font-weight: 600; padding: 0 6px; border-radius: 4px; }
+  .katex-display { direction: ltr; }
+  ol, ul { padding-right: 22px; padding-left: 0; }
+</style>
 </head>
 <body>
 
@@ -21,27 +34,147 @@
 <main class="wrap">
 
   <section>
-    <h1>Lab 00 — Setup and toolchain</h1>
-    <div class="meta"><span>Session: 2026-10-28</span><span>Device: ADALM-Pluto at <code>ip:192.168.1.10</code></span></div>
-    <p class="lead">Installing and verifying the software paths used for the rest of the semester.</p>
+    <h1>گزارش آزمایش ۰: راه‌اندازی محیط و نصب نرم‌افزارها</h1>
+    <div class="meta">
+      <span>تیم <span class="ltr">ersa</span>: امیرمهدی میرعلیاری، محمد محمدیان</span>
+      <span>جلسه: چهارشنبه ۶ آبان ۱۴۰۵ (<span class="ltr">2026-10-28</span>)</span>
+    </div>
+    <ul class="files">
+      <li><a href="files/lab00_report.pdf">lab00_report.pdf</a><span class="note">نسخه‌ی کامل گزارش (LaTeX)</span></li>
+      <li><a href="files/lab00_report_tex.zip">lab00_report_tex.zip</a><span class="note">فایل‌های منبع LaTeX و تصاویر</span></li>
+    </ul>
   </section>
 
   <section>
-    <h2>Verified paths</h2>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Path</th><th>Tool</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Network</td><td>Static IP <code>192.168.1.20</code>, ping to <code>192.168.1.10</code></td><td><span class="pill ok">OK</span></td></tr>
-          <tr><td>B</td><td>radioconda, GNU Radio 3.10.12.0 (gr-iio)</td><td><span class="pill ok">OK</span></td></tr>
-          <tr><td>D</td><td>Python 3.12.9 with pyadi-iio 0.0.19</td><td><span class="pill ok">OK</span></td></tr>
-          <tr><td>Spectrum app 1</td><td>SDR++ 1.3.2 (USB driver)</td><td><span class="pill ok">OK</span></td></tr>
-          <tr><td>Spectrum app 2</td><td>SDRangel 8.0.0</td><td><span class="pill wait">Pending</span></td></tr>
-          <tr><td>A</td><td>MATLAB + Pluto support package</td><td><span class="pill wait">Pending</span></td></tr>
-          <tr><td>C</td><td>Ubuntu 24.04 (dual boot)</td><td><span class="pill wait">Pending</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h2>۱. هدف و خلاصه‌ی نتایج</h2>
+    <p>هدف، برپا کردن محیط نرم‌افزاری درس روی لپ‌تاپ‌های تیم و آزمودن هر مسیر با اتصال واقعی به دستگاه <span class="ltr">ADALM-Pluto</span> از راه نشانی <code>ip:192.168.1.10</code> بود.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>مسیر</th><th>ابزار</th><th>خروجی آزمون</th><th>وضعیت</th></tr></thead>
+      <tbody>
+        <tr><td>شبکه</td><td>کارت شبکه‌ی سیمی</td><td><code>ping 192.168.1.10</code></td><td><span class="pill ok">انجام شد</span></td></tr>
+        <tr><td>الف</td><td><span class="ltr">MATLAB</span> و بسته‌ی پلوتو</td><td>شناسایی از راه شبکه و طیف <span class="ltr">GSM900</span></td><td><span class="pill ok">انجام شد (لپ‌تاپ ۲)</span></td></tr>
+        <tr><td>ب</td><td><span class="ltr">Radioconda، GNU Radio</span> و نرم‌افزارهای آماده</td><td>فلوگراف و دو نرم‌افزار آماده</td><td><span class="pill ok">نصب و پیکربندی کامل</span></td></tr>
+        <tr><td>ج</td><td>اوبونتو در کنار ویندوز</td><td><code>iio_info</code> و GRC</td><td><span class="pill wait">در برنامه‌ی تکمیل</span></td></tr>
+        <tr><td>د</td><td><span class="ltr">VS Code</span>، پایتون، <span class="ltr">pyadi-iio</span></td><td>گرفتن نمونه‌های I/Q</td><td><span class="pill ok">نصب کامل؛ اسکریپت آماده</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>۲. تنظیم کارت شبکه</h2>
+    <p>کارت سیمی با نشانی ثابت <code>192.168.1.20</code> و ماسک <code>255.255.255.0</code> تنظیم شد؛ دروازه و DNS خالی ماندند. دو نشانی در یک زیرشبکه‌اند:</p>
+    <div class="math-box">$$192.168.1.20 \wedge 255.255.255.0 = 192.168.1.10 \wedge 255.255.255.0 = 192.168.1.0$$</div>
+    <p>آزمون <code>ping</code> چهار پاسخ با زمان کمتر از یک میلی‌ثانیه و اتلاف صفر درصد داد.</p>
+  </section>
+
+  <section>
+    <h2>۳. مسیر الف: <span class="ltr">MATLAB</span></h2>
+    <p>اسکریپت آزمون دستورکار روی لپ‌تاپ ۲ (لپ‌تاپ مبین جلودار، عضو تیم در جلسه‌ی صفر؛ ترکیب تیم پس از این جلسه تغییر کرد) با بهره‌ی ۳۰ دسی‌بل اجرا شد و طیف در ۹۴۵ مگاهرتز با نرخ ۲٫۶ مگانمونه بر ثانیه دریافت شد.</p>
+    <figure>
+      <a href="files/matlab_spectrum.jpg"><img src="files/matlab_spectrum.jpg" alt="اسکریپت MATLAB و نمایشگر طیف در ۹۴۵ مگاهرتز"></a>
+      <figcaption>شکل ۱: آزمون مسیر الف و طیف دریافتی در ۹۴۵ مگاهرتز (برای بزرگ‌نمایی کلیک کنید).</figcaption>
+    </figure>
+    <p>اعداد نوار وضعیت نمایشگر با نظریه یکی‌اند:</p>
+    <div class="math-box">$$\Delta f = \frac{f_s}{N} = \frac{2.6\times10^6}{1024} \approx 2.5391\ \text{kHz}, \qquad \Delta T = \frac{N}{f_s} \approx 393.846\ \mu\text{s}$$</div>
+    <p>در این فرکانس حامل‌های باریک GSM دیده نشد. طیف در حدود $\pm 0.6$ مگاهرتز تقریباً تخت است و تا لبه‌ها حدود ۲۴ دسی‌بل افت می‌کند. برداشت ما این است که ۹۴۵ مگاهرتز درون یک سیگنال پهن‌باند قرار دارد (در آزمایش ۱ بلوکی حدود ۴٫۴ مگاهرتزی بین ۹۴۲ و ۹۴۶٫۴ دیدیم) و افت دو طرف پاسخ فیلترهای گیرنده است.</p>
+    <p>دستگاه با <code>iio_attr -C</code> (در آغاز جلسه‌ی ۱) شناسایی شد: مدل سازگار با پلوتو <span class="ltr">PUZHI PZSDR P201PRO</span> با تراشه‌ی <span class="ltr">AD9361</span>، سفت‌افزار <span class="ltr">3669-dirty</span> و بازه‌ی گیرنده‌ی ۷۰ مگاهرتز تا ۶ گیگاهرتز. شماره‌ی سریال از <code>info(rx)</code> در برنامه‌ی تکمیل ثبت می‌شود.</p>
+  </section>
+
+  <section>
+    <h2>۴. مسیر ب: <span class="ltr">Radioconda</span> و <span class="ltr">GNU Radio</span></h2>
+    <ul>
+      <li><span class="ltr">GNU Radio 3.10.12.0</span> با بلوک‌های <span class="ltr">gr-iio</span> روی لپ‌تاپ ۱ نصب شد. اتصال GRC به دستگاه در آغاز جلسه‌ی ۱ با فلوگراف پایش تأیید شد.</li>
+      <li><span class="ltr">SDR++ v1.3.2</span>: دستگاه فقط از راه USB و پس از نصب درایور پلوتو شناخته شد. تصویر طیف در برنامه‌ی تکمیل ثبت می‌شود.</li>
+      <li><span class="ltr">SDRangel 8.0.0</span>: نصب و با آرگومان <code>uri=ip:192.168.1.10</code> پیکربندی شد؛ دستگاه با جست‌وجوی خودکار پیدا نشد.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>۵. مسیر د: پایتون و <span class="ltr">pyadi-iio</span></h2>
+    <p>محیط پایتون <span class="ltr">Radioconda (base, Python 3.12.9)</span> با <span class="ltr">pyadi-iio 0.0.19</span> از پیش آماده بود و در VS Code به‌عنوان مفسر انتخاب شد. خط چاپ اسکریپت دستورکار پرانتز وارونه داشت و اصلاح شد:</p>
+    <pre class="ltr"><code>print("samples:", x.shape, " sample_rate:", sdr.sample_rate)</code></pre>
+    <p>اسکریپت <code>pluto_test.py</code>:</p>
+    <pre class="ltr"><code>import adi, numpy as np, matplotlib.pyplot as plt
+
+sdr = adi.Pluto("ip:192.168.1.10")
+sdr.sample_rate = int(2.6e6)
+sdr.rx_lo = int(945e6)
+sdr.rx_rf_bandwidth = int(2e6)
+sdr.gain_control_mode_chan0 = "manual"
+sdr.rx_hardwaregain_chan0 = 20
+sdr.rx_buffer_size = 4096
+
+x = sdr.rx()
+print("samples:", x.shape, " sample_rate:", sdr.sample_rate)
+
+X = np.fft.fftshift(np.fft.fft(x * np.hanning(len(x))))
+f = (sdr.rx_lo + np.fft.fftshift(np.fft.fftfreq(len(x), 1/sdr.sample_rate))) / 1e6
+plt.plot(f, 20*np.log10(np.abs(X) + 1e-9))
+plt.xlabel("frequency (MHz)"); plt.ylabel("dB"); plt.grid(True); plt.show()</code></pre>
+    <p>خروجی مورد انتظار: <code>samples: (4096,)  sample_rate: 2600000</code>؛ ثبت خروجی و نمودار در برنامه‌ی تکمیل.</p>
+  </section>
+
+  <section>
+    <h2>۶. مسیر ج: اوبونتو</h2>
+    <p>نصب اوبونتو پارتیشن‌بندی دیسک را تغییر می‌دهد و پیش از آن پشتیبان‌گیری کامل لازم است؛ این مسیر طبق برنامه‌ی تکمیل، بیرون از جلسه انجام می‌شود. اجرای آزمایش‌ها روی ویندوز با Radioconda به آن وابسته نیست.</p>
+  </section>
+
+  <section>
+    <h2>برنامه‌ی تکمیل</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>بند</th><th>کار</th><th>موعد</th></tr></thead>
+      <tbody>
+        <tr><td>مسیر د</td><td>اجرای <code>pluto_test.py</code> با دستگاه و ثبت خروجی و نمودار</td><td>جلسه‌ی ۲ (۲۰ آبان)</td></tr>
+        <tr><td>مسیر الف</td><td>ثبت شماره‌ی سریال از <code>info(rx)</code></td><td>جلسه‌ی ۲ (۲۰ آبان)</td></tr>
+        <tr><td>مسیر ب</td><td>تصویر طیف در SDR++ و آزمون SATSAGEN</td><td>جلسه‌ی ۲ (۲۰ آبان)</td></tr>
+        <tr><td>مسیر ج</td><td>نصب اوبونتو و آزمون <code>iio_info</code> و GRC</td><td>تا ۲۰ آبان</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>۷. عیب‌یابی</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>نشانه</th><th>علت</th><th>راه‌حل</th></tr></thead>
+      <tbody>
+        <tr><td>پیوند Radioconda به صفحه‌ای دیگر منتقل شد</td><td>مخزن به <span class="ltr">radioconda/radioconda-installer</span> منتقل شده</td><td>نصب‌کننده از بخش Download صفحه‌ی جدید گرفته شد</td></tr>
+        <tr><td>زیپ کد منبع به‌جای برنامه‌ی نصبی دانلود شد</td><td>دکمه‌ی Code و فایل‌های Source code کد منبع‌اند</td><td>فایل‌های آماده از بخش Releases گرفته شد</td></tr>
+        <tr><td><code>gnuradio-companion</code> شناخته نشد</td><td>خط فرمان معمولی ویندوز، بدون محیط کاندا</td><td>اجرا از میانبر منو یا <span class="ltr">radioconda Prompt</span></td></tr>
+        <tr><td>خطای نحوی در اسکریپت پایتون</td><td>پرانتز وارونه در خط چاپ</td><td>خط چاپ اصلاح شد</td></tr>
+        <tr><td>SDR++ پلوتو را پیدا نکرد</td><td>نبود خانه‌ی نشانی دستی شبکه در این نسخه</td><td>نصب درایور USB پلوتو</td></tr>
+        <tr><td>SDR++ فقط صدای نویز داشت</td><td>فرکانس به‌اشتباه ۱۱۹٫۱ گیگاهرتز وارد شده بود</td><td>ورود دوازده‌رقمی فرکانس</td></tr>
+        <tr><td>SDRangel پلوتو را نشناخت</td><td>جست‌وجوی خودکار ناموفق</td><td>ردیف دستی امتحان شد؛ حل نشد</td></tr>
+        <tr><td>نصب بسته‌ی پشتیبانی MATLAB</td><td>دسترسی محدود به حساب MathWorks</td><td>انجام روی لپ‌تاپ ۲</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>۸. ایمنی</h2>
+    <p>فقط دریافت انجام شد و آنتن تنها روی RX1 بود. در یکی از تصاویر SDR++ بهره روی ۶۰ دسی‌بل دیده می‌شود که از سقف ۳۰ دسی‌بل با آنتن بیشتر است؛ از این پس پیش از هر اجرا بهره را چک می‌کنیم.</p>
+  </section>
+
+  <section>
+    <h2>۹. استفاده از هوش مصنوعی</h2>
+    <p>از دستیار هوش مصنوعی Claude برای راهنمایی نصب، رفع خطاها و نگارش و قالب‌بندی گزارش استفاده شد. داده‌ها و مشاهده‌ها از اجرای خود تیم است.</p>
+  </section>
+
+  <section class="comments">
+    <h2>داوری همتا</h2>
+    <script src="https://giscus.app/client.js"
+      data-repo="ersa-sdr/ersa-sdr.github.io"
+      data-repo-id="REPO_ID"
+      data-category="Announcements"
+      data-category-id="CATEGORY_ID"
+      data-mapping="pathname"
+      data-strict="1"
+      data-reactions-enabled="0"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="preferred_color_scheme"
+      data-lang="fa"
+      crossorigin="anonymous"
+      async></script>
   </section>
 
 </main>

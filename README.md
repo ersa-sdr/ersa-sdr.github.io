@@ -3,7 +3,7 @@
 Static site (hand-written HTML/CSS, no generator) for the Software Defined Radio Lab,
 Sharif University of Technology, Fall 2026. Hosted on GitHub Pages.
 
-Members: Amir Mahdi Miraliyari, Mobin Jelodar.
+Members: Amir Mahdi Miraliyari, Mohammad Mohammadian.
 
 ## Layout
 
