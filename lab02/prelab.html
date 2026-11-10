@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پیش‌گزارش آزمایش ۲ | Team ERSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&family=Vazirmatn:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  body { font-family: "Vazirmatn", var(--font-body); line-height: 1.9; }
+  th, td { text-align: right; }
+  .ltr, code { direction: ltr; unicode-bidi: isolate; }
+  .site-head .wrap, footer .wrap { direction: ltr; }
+  .katex-display { direction: ltr; overflow-x: auto; overflow-y: hidden; }
+  .katex { direction: ltr; unicode-bidi: isolate; }
+  ol, ul { padding-right: 22px; padding-left: 0; }
+  td.n { direction: ltr; text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  h3 { margin-top: 18px; }
+  .result, .aside { padding: 10px 14px; margin: 12px 0; border-radius: 4px; font-size: .95em; }
+  .result { background: rgba(46,125,107,.10); border-right: 4px solid #2E7D6B; }
+  .aside { background: rgba(120,145,175,.12); border-right: 4px solid #8FA6C0; }
+  .result p, .aside p { margin: 0; }
+  section h2 { border-bottom: 2px solid #2E7D6B; padding-bottom: 4px; }
+  figure img { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../"><b>ERSA</b><span>SDR Lab · Fall 2026</span></a>
+    <nav><a href="../">Labs</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h1>پیش‌گزارش آزمایش ۲: عدد نویز، تراکم و نقطه‌ی تقاطع مرتبه‌ی سوم</h1>
+  <div class="meta"><span>تیم <span class="ltr">ersa</span>: امیرمهدی میرعلیاری، محمد محمدیان</span></div>
+  <ul class="files">
+    <li><a href="prelab.pdf">prelab.pdf</a><span class="note">نسخه‌ی کامل پیش‌گزارش با همه‌ی محاسبه‌ها</span></li>
+    <li><a href="files/prelab_tex.zip">prelab_tex.zip</a><span class="note">فایل‌های LaTeX، شکل‌ها و کدهای شبیه‌سازی</span></li>
+  </ul>
+  <div class="aside"><p><b>خلاصه‌ی کارمان.</b> اول منبع‌ها را خواندیم و پرسش‌های نظری را حل کردیم. بعد مدل گیرنده‌ی فلوگراف شبیه‌سازی را در پایتون دوباره نوشتیم تا بتوانیم سریع و چند بار اجرایش کنیم، و با مثال دستورکار چک کردیم که درست کار می‌کند. با همین مدل عدد نویز، تراکم و آزمایش دوتنی را در چند بهره امتحان کردیم. در آخر برای گیرنده‌ی خودمان پیش‌بینی نوشتیم که سر جلسه با اندازه‌گیری مقایسه کنیم. این صفحه خلاصه است؛ جزئیات کامل در پی‌دی‌اف است.</p></div>
+</section>
+
+<section>
+  <h2>تکلیف ۱: خلاصه‌ی منبع</h2>
+  <h3>عدد نویز چه چیزی را نشان می‌دهد؟</h3>
+  <p>هر طبقه‌ی گیرنده سیگنال را تقویت می‌کند، ولی یک مقدار نویز هم از خودش اضافه می‌کند. عدد نویز می‌گوید نسبت سیگنال به نویز بعد از گیرنده چقدر بدتر شده است (وقتی منبع در $T_0=290\,\text{K}$ باشد). همین را با دمای نویز $T_e=T_0(F-1)$ هم می‌شود گفت. کف نویز ورودی $-174+NF+10\log_{10}B$ است، پس هر دسی‌بل عدد نویز بیشتر، ضعیف‌ترین سیگنال قابل دریافت را یک دسی‌بل بالا می‌برد. در زنجیره هم طبق فریس، طبقه‌ی اول از همه مهم‌تر است.</p>
+  <h3>چرا روش Y-Factor توان مطلق لازم ندارد؟</h3>
+  <p>توان نویز خروجی با دمای منبع رابطه‌ی خطی دارد: $N=Gk(T_\text{in}+T_e)B$. اگر یک بار با منبع خاموش و یک بار روشن اندازه بگیریم، در نسبت این دو $G$ و $B$ ساده می‌شوند و $F=\text{ENR}/(Y-1)$ به دست می‌آید. پس واحد نسبی dBFS کافی است. شرط‌ها: بهره ثابت بماند، گیرنده در حالت روشن متراکم نشود، و ENR با عدد نویز جور باشد.</p>
+  <h3>نقطه‌ی تقاطع مرتبه‌ی سوم به چه دردی می‌خورد؟</h3>
+  <p>دو سیگنال قوی در $f_1$ و $f_2$ سیگنال‌های ناخواسته‌ای در $2f_1-f_2$ و $2f_2-f_1$ می‌سازند که درست کنار سیگنال اصلی می‌افتند و با فیلتر حذف نمی‌شوند. با داشتن IIP3 سطح این محصولات برای هر ورودی حساب می‌شود: $P_\text{IM3}=3P_\text{in}-2\,\text{IIP3}$. البته این فقط برای مدل مرتبه‌ی سوم درست است؛ در SDR احتمالاً بریدگی مبدل زودتر اتفاق می‌افتد.</p>
+</section>
+
+<section>
+  <h2>تکلیف ۲: پرسش‌های نظری</h2>
+  <h3>پرسش ۱: عدد نویز و فریس</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>NF (dB)</th><th>F</th><th>T<sub>e</sub> (K)</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td class="n">1.259</td><td class="n">75.1</td></tr>
+      <tr><td class="n">3</td><td class="n">1.995</td><td class="n">288.6</td></tr>
+      <tr><td class="n">6</td><td class="n">3.981</td><td class="n">864.5</td></tr>
+      <tr><td class="n">10</td><td class="n">10.0</td><td class="n">2610</td></tr>
+    </tbody></table></div>
+  <p>برای زنجیره، اول دسی‌بل‌ها را خطی کردیم و بعد فریس را نوشتیم:</p>
+  <div class="math-box">$$F=1.259+\frac{0.995}{100}+\frac{30.62}{100\times0.501}=1.880\;\Rightarrow\;NF=2.74\ \text{dB}$$</div>
+  <p>اگر فیلتر را قبل از تقویت‌کننده بگذاریم:</p>
+  <div class="math-box">$$F=1.995+\frac{0.259}{0.501}+\frac{30.62}{0.501\times100}=3.123\;\Rightarrow\;NF=4.95\ \text{dB}$$</div>
+  <div class="result"><p>جابه‌جا کردن فیلتر عدد نویز را حدود ۲٫۲ دسی‌بل بدتر کرد، چون تلفات قبل از اولین تقویت‌کننده تقریباً همان‌قدر به عدد نویز اضافه می‌شود.</p></div>
+
+  <h3>پرسش ۲: به دست آوردن رابطه‌ی Y-Factor</h3>
+  <div class="math-box">$$Y=\frac{T_h+T_e}{T_0+T_e}\;\Rightarrow\;T_e=\frac{T_h-YT_0}{Y-1},\qquad F=1+\frac{T_e}{T_0}=\frac{\text{ENR}}{Y-1}$$</div>
+  <p>اگر دمای حالت خاموش $T_c$ باشد: $F=\dfrac{\text{ENR}-Y\,(T_c/T_0-1)}{Y-1}$. با تضعیف‌گر بین منبع و گیرنده، حالت خاموش همان $T_0$ می‌ماند ولی اختلاف حالت روشن $L$ برابر کم می‌شود:</p>
+  <div class="result"><p>$\text{ENR}_\text{eff,dB}=\text{ENR}_\text{dB}-A_\text{dB}$؛ یعنی تضعیف‌گر دقیقاً به اندازه‌ی خودش از ENR کم می‌کند.</p></div>
+
+  <h3>پرسش ۳: حساسیت به خطای اندازه‌گیری</h3>
+  <p>با ENR=۱۵: برای $NF=6$، مقدار $Y$ حدود ۹٫۵ دسی‌بل است و ۰٫۱ دسی‌بل خطا در $Y$ فقط حدود ۰٫۱۱ دسی‌بل خطا در عدد نویز می‌دهد. ولی برای $NF=25$، $Y$ فقط ۰٫۴۱ دسی‌بل است و همان خطا عدد نویز را از ۰٫۹۹− تا ۱٫۲۵+ دسی‌بل جابه‌جا می‌کند؛ حدود ده برابر بدتر!</p>
+  <div class="result"><p>نتیجه: ENR باید حداقل ۵ تا ۱۰ دسی‌بل از عدد نویز مورد انتظار بیشتر باشد، ولی نه آن‌قدر که گیرنده متراکم شود.</p></div>
+
+  <h3>پرسش ۴: غیرخطی‌بودن</h3>
+  <p>با مدل $y=a_1x+a_3x^3$ و دو تن هم‌دامنه به این‌ها رسیدیم:</p>
+  <div class="math-box">$$\Delta=2(\text{IIP3}-P_\text{in})\;\Rightarrow\;\text{IIP3}=P_\text{in}+\frac{\Delta}{2},\qquad \text{IIP3}\approx P_\text{1dB}+9.6\ \text{dB}$$</div>
+  <div class="aside"><p>این رابطه فقط برای مدل مرتبه‌ی سوم ساده درست است، و IIP3 یک نقطه‌ی امتدادی است؛ پس باید از نقطه‌هایی حساب شود که شیب واقعاً ۳ است.</p></div>
+
+  <h3>پرسش ۵: محدوده‌ی دینامیکی بدون اسپور</h3>
+  <p>با $NF=8$ و $\text{IIP3}=-10$: در ۲۰۰ کیلوهرتز کف نویز ۱۱۳− دسی‌بل‌میلی‌وات و SFDR برابر ۶۸٫۷ دسی‌بل است؛ در ۱۰ کیلوهرتز کف ۱۲۶− و SFDR برابر ۷۷٫۳ دسی‌بل. یعنی با پهنای باند بیشتر، SFDR کم می‌شود.</p>
+
+  <h3>پرسش ۶: بهره در گیرنده‌ی SDR</h3>
+  <p>با ۱۰ دسی‌بل بهره‌ی بیشتر، نویز مبدل (برگردانده به ورودی) ۱۰ دسی‌بل پایین می‌آید که خوب است، ولی مقیاس کامل و نقطه‌ی تراکم هم ۱۰ دسی‌بل پایین می‌آیند که بد است. از یک جایی به بعد بهره‌ی بیشتر عدد نویز را بهتر نمی‌کند ولی تراکم را بدتر می‌کند؛ در شبیه‌سازی هم دیدیم از بهره‌ی ۴۰ به ۵۰ عدد نویز فقط از ۶٫۵ به ۶٫۱ دسی‌بل رسید.</p>
+</section>
+
+<section>
+  <h2>تکلیف ۳: محاسبه‌ی طراحی</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>کمیت</th><th>مقدار</th><th>چرا</th></tr></thead>
+    <tbody>
+      <tr><td>ENR برای عدد نویز حدود ۷ و ۳۰</td><td>۱۵ و ۳۵ دسی‌بل</td><td>$Y$ حدود ۸٫۶ و ۶٫۲ دسی‌بل می‌شود؛ با ENR=۱۵ برای عدد نویز ۳۰، $Y$ فقط ۰٫۱۴ دسی‌بل می‌شد.</td></tr>
+      <tr><td>تضعیف بعد از منبع</td><td>NF≈۷: منبع ۱۵ بدون تضعیف یا منبع ۳۵ با ۲۰ دسی‌بل؛ NF≈۳۰: منبع ۳۵ بدون تضعیف</td><td>$\text{ENR}_\text{eff}=\text{ENR}-A$. توان حالت روشن حتی با ۳۵ حدود ۶۶− دسی‌بل‌میلی‌وات است، خیلی کمتر از حد ایمنی.</td></tr>
+      <tr><td>زمان میانگین‌گیری (نوسان کمتر از ۰٫۰۵ دسی‌بل)</td><td>حداقل ۱۹ میلی‌ثانیه؛ ما ۰٫۱ ثانیه صبر می‌کنیم</td><td>$1/\sqrt{B\tau}\le0.0116\Rightarrow B\tau\ge7.5\times10^3$</td></tr>
+      <tr><td>جاروب تک‌تن</td><td>از ۳۵ دسی‌بل زیر تراکم تا ۳ دسی‌بل بعد از آن؛ گام ۲، نزدیک تراکم ۱ دسی‌بل؛ هیچ‌وقت بالای ۱۰− دسی‌بل‌میلی‌وات</td><td>شروع باید حداقل ۲۰ دسی‌بل بالای کف نویز باشد.</td></tr>
+      <tr><td>دو تن و محصولات</td><td>۳۰۰+ و ۴۰۰+ کیلوهرتز؛ محصولات در ۲۰۰ و ۵۰۰</td><td>همه از مرکز و لبه‌ها دورند و فاصله‌ی ۱۰۰ خیلی بیشتر از نوار ۱۰ کیلوهرتز است.</td></tr>
+      <tr><td>توان هر تن (محصول ۱۰ دسی‌بل بالای کف)</td><td>$P_\text{in}\ge(N_\text{10k}+10+2\,\text{IIP3})/3$؛ در مدل حدود ۴۶−</td><td>در شبیه‌سازی هم چک کردیم.</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2>تکلیف ۴: شبیه‌سازی با مدل گیرنده</h2>
+  <p>مدل فلوگراف <code>lab02_sim.grc</code> را بلوک به بلوک در پایتون دوباره ساختیم تا جاروب‌ها را خودکار اجرا کنیم.</p>
+  <div class="aside"><p><b>چک کردن مدل:</b> در بهره‌ی ۴۰ و ENR=۱۵ مدل ما $Y=9.07$ و $NF=6.50$ دسی‌بل داد؛ مثال ۲ دستورکار ۹٫۰۶ و ۶٫۵ نوشته است.</p></div>
+  <h3>عدد نویز</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>بهره</th><th>ENR</th><th>N<sub>off</sub> (dBFS)</th><th>N<sub>on</sub> (dBFS)</th><th>Y (dB)</th><th>NF (dB)</th></tr></thead>
+    <tbody>
+      <tr><td class="n">40</td><td class="n">15</td><td class="n">−41.44</td><td class="n">−32.39</td><td class="n">9.05</td><td class="n">6.52</td></tr>
+      <tr><td class="n">10</td><td class="n">15</td><td class="n">−51.00</td><td class="n">−50.72</td><td class="n">0.28</td><td>۲۶٫۸ (قابل اعتماد نیست)</td></tr>
+      <tr><td class="n">10</td><td class="n">35</td><td class="n">−51.00</td><td class="n">−42.30</td><td class="n">8.70</td><td class="n">26.9</td></tr>
+    </tbody></table></div>
+  <p>در بهره‌ی ۱۰ با ENR=۱۵ مقدار $Y$ خیلی کم بود، برای همین ENR=۳۵ را انتخاب کردیم.</p>
+  <h3>تراکم یک دسی‌بل</h3>
+  <figure><a href="figs/compression.png"><img src="figs/compression.png" alt="منحنی خروجی بر حسب ورودی در بهره‌ی صفر و ۴۰"></a>
+    <figcaption>بهره‌ی ۴۰: P1dB برابر ۶۸٫۰− و تراکم یک‌دفعه است (فکر می‌کنیم به خاطر بریدگی مبدل). بهره‌ی صفر: ۳۴٫۷− و تراکم آرام است (از طبقه‌ی ورودی).</figcaption></figure>
+  <h3>آزمایش دوتنی</h3>
+  <figure><a href="figs/twotone.png"><img src="figs/twotone.png" alt="آزمایش دوتنی در بهره‌ی صفر و ۴۰"></a>
+    <figcaption>بهره‌ی صفر: شیب ۲٫۹۷ و IIP3 حدود ۲۵٫۳−. بهره‌ی ۴۰: محصول در ۷۶− ناگهان حدود ۲۵ دسی‌بل می‌پرد.</figcaption></figure>
+  <p>در بهره‌ی ۴۰ اول تعجب کردیم، ولی بعد دلیلش را پیدا کردیم: دامنه‌ی اوج دو تن هم‌دامنه دو برابر هر تن است، پس مبدل وقتی بریده می‌شود که هر تن به حدود ۶− dBFS برسد. به نظر ما در این بهره IIP3 معنی روشنی ندارد.</p>
+  <h3>عدد نویز و تراکم در بهره‌های مختلف</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>بهره</th><th>ENR</th><th>Y (dB)</th><th>NF (dB)</th><th>P1dB (dBm)</th><th>کف ۱۰ کیلوهرتز</th><th>فاصله (dB)</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0</td><td class="n">45</td><td class="n">8.71</td><td class="n">36.9</td><td class="n">−34.7</td><td class="n">−97.1</td><td class="n">62.4</td></tr>
+      <tr><td class="n">10</td><td class="n">35</td><td class="n">8.67</td><td class="n">27.0</td><td class="n">−38.3</td><td class="n">−107.0</td><td class="n"><b>68.8</b></td></tr>
+      <tr><td class="n">20</td><td class="n">35</td><td class="n">17.74</td><td class="n">17.3</td><td class="n">−48.0</td><td class="n">−116.7</td><td class="n"><b>68.7</b></td></tr>
+      <tr><td class="n">30</td><td class="n">15</td><td class="n">6.53</td><td class="n">9.6</td><td class="n">−58.0</td><td class="n">−124.4</td><td class="n">66.5</td></tr>
+      <tr><td class="n">40</td><td class="n">15</td><td class="n">9.07</td><td class="n">6.5</td><td class="n">−68.0</td><td class="n">−127.5</td><td class="n">59.5</td></tr>
+      <tr><td class="n">50</td><td class="n">15</td><td class="n">9.46</td><td class="n">6.1</td><td class="n">−78.2</td><td class="n">−127.9</td><td class="n">49.7</td></tr>
+    </tbody></table></div>
+  <figure><a href="figs/gain_tradeoff.png"><img src="figs/gain_tradeoff.png" alt="عدد نویز و فاصله‌ی تراکم بر حسب بهره"></a>
+    <figcaption>عدد نویز و فاصله‌ی تراکم تا کف نویز بر حسب بهره.</figcaption></figure>
+  <div class="result"><p>بیشترین فاصله بین بهره‌ی ۱۰ و ۲۰ است (بهره‌ی ۱۵ را هم امتحان کردیم: ۶۸٫۹ دسی‌بل). با بهره‌ی کمتر نویز مبدل عدد نویز را بالا می‌برد و با بهره‌ی بیشتر، تراکم پایین می‌آید.</p></div>
+</section>
+
+<section>
+  <h2>تکلیف ۵: پاسخ فرکانسی آنتن</h2>
+  <h3>بازه‌ی کاری اعلام‌شده در صفحه‌ی محصول</h3><div class="tbl"><table><thead><tr><th>بازه</th><th>حد پایین (MHz)</th><th>حد بالا (MHz)</th></tr></thead><tbody><tr><td>۱</td><td class="n">2400</td><td class="n">2500</td></tr></tbody></table></div><h3>شبیه‌سازی</h3>
+  <p>فایل شبیه‌سازی آنتن را خواندیم و پاسخ را با همان مشخصات ولی با گام ریزتر (۰٫۱ مگاهرتز) خودمان حساب کردیم، چون با گام پیش‌فرض ۲۰ مگاهرتز نقطه‌ی سه‌دسی‌بلی بین دو نقطه می‌افتاد.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>کمیت</th><th>مقدار (MHz)</th></tr></thead>
+    <tbody>
+      <tr><td>فرکانس قطع پایین، f<sub>L</sub></td><td class="n">808.5</td></tr>
+      <tr><td>فرکانس قطع بالا، f<sub>H</sub></td><td class="n">1791.5</td></tr>
+      <tr><td>پهنای باند سه‌دسی‌بلی</td><td class="n">983.0</td></tr>
+    </tbody></table></div>
+  <figure><a href="figs/antenna.png"><img src="figs/antenna.png" alt="پاسخ فرکانسی شبیه‌سازی‌شده‌ی آنتن"></a>
+    <figcaption>پاسخ شبیه‌سازی‌شده؛ خط‌چین سطح ۳− دسی‌بل.</figcaption></figure>
+  <div class="aside"><p><b>دو نکته که به چشممان خورد:</b> (۱) لبه‌های ۸۰۰ و ۱۸۰۰ مگاهرتز در نمودار برنامه در واقع نقطه‌های ۶− دسی‌بل‌اند، نه ۳−. (۲) شبیه‌سازی بازه‌ی ۸۰۰ تا ۱۸۰۰ را فرض کرده، ولی صفحه‌ی محصول ۲٫۴ تا ۲٫۵ گیگاهرتز نوشته، در حالی که اسم آنتن GSM است. سر جلسه با اندازه‌گیری می‌بینیم کدام درست است.</p></div>
+</section>
+
+<section>
+  <h2>تکلیف ۶: پیش‌بینی برای گیرنده‌ی خودمان</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>ردیف</th><th>کمیت</th><th>پیش‌بینی</th></tr></thead>
+    <tbody>
+      <tr><td>۱</td><td>عدد نویز در بیشترین بهره</td><td>حدود ۵ دسی‌بل (تراشه ۲ تا ۳، به‌اضافه‌ی تلفات قطعه‌های قبلش)</td></tr>
+      <tr><td>۲</td><td>تغییر عدد نویز با ۲۰ دسی‌بل بهره‌ی کمتر</td><td>حدود ۱۰+ دسی‌بل</td></tr>
+      <tr><td>۳</td><td>تغییر P1dB با ۱۰ دسی‌بل بهره‌ی کمتر</td><td>حدود ۱۰+ دسی‌بل</td></tr>
+      <tr><td>۴</td><td>Y با ENR=۱۵ و NF=۷</td><td>۸٫۶ دسی‌بل</td></tr>
+      <tr><td>۵</td><td>تضعیف‌گر ۱۰ دسی‌بل قبل از گیرنده</td><td>۱۰+ دسی‌بل ($F=LF_\text{rx}$)</td></tr>
+      <tr><td>۶</td><td>محصول مرتبه‌ی سوم با ۲+ دسی‌بل برای هر تن</td><td>۶+ دسی‌بل (اگر مبدل بریده نشود)</td></tr>
+      <tr><td>۷</td><td>IIP3 − P1dB ≈ ۹٫۶؟</td><td>در بهره‌های بالا نه، چون بریدگی مبدل حد را تعیین می‌کند</td></tr>
+      <tr><td>۸</td><td>بهره‌ی اختصاصی تیم</td><td>بعد از اعلام در جلسه</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2>تکلیف ۷: ریسک‌ها و راه جلوگیری</h2>
+  <ol>
+    <li><b>آسیب به ورودی گیرنده:</b> قبل از هر اتصال توان ورودی را حساب می‌کنیم و هیچ‌وقت از ۱۰− دسی‌بل‌میلی‌وات بالاتر نمی‌رویم؛ موقع بستن کابل فرستنده خاموش است؛ جاروب از کمترین سطح شروع می‌شود؛ تضعیف‌گر ۳۰ دسی‌بل همیشه سر جایش است.</li>
+    <li><b>خواندن اشتباه Y:</b> بهره‌ی دستی را قبل از هر اندازه‌گیری چک می‌کنیم، ENR را طبق جدول طراحی می‌گیریم و حداقل ۰٫۱ ثانیه صبر می‌کنیم. با اضافه کردن تضعیف هم تست می‌کنیم که عدد نویز عوض نشود.</li>
+    <li><b>اشتباه گرفتن محصول فرستنده با محصول گیرنده:</b> با ۳ دسی‌بل تضعیف اضافه، محصول گیرنده ۹ دسی‌بل پایین می‌آید ولی محصول فرستنده فقط ۳ دسی‌بل.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>کارهای تیم و استفاده از هوش مصنوعی</h2>
+  <p><b>کارهایی که خودمان انجام دادیم:</b></p>
+  <ul>
+    <li>دستورکار و منبع‌ها را خواندیم و ترتیب انجام تکلیف‌ها را مشخص کردیم.</li>
+    <li>مشخصات آنتن را از صفحه‌ی محصول پیدا کردیم و در جدول تکلیف ۵ نوشتیم.</li>
+    <li>همه‌ی محاسبه‌ها و نتیجه‌های گزارش را قدم به قدم مرور کردیم و درستی مدل شبیه‌سازی را با مثال ۲ دستورکار چک کردیم.</li>
+    <li>گزارش و صفحه‌ی آن را روی سایت تیم منتشر کردیم.</li>
+  </ul>
+  <p><b>استفاده از هوش مصنوعی:</b> از دستیار Claude به‌عنوان ابزار کمکی برای نوشتن کد شبیه‌سازی و پیش‌نویس پاسخ‌ها و تحلیل‌ها استفاده کردیم.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Team ERSA · SDR Lab, Sharif University of Technology</div>
+</footer>
+</body>
+</html>
